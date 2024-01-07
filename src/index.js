@@ -65,9 +65,10 @@ function createMarkup(breedOpt) {
 }
 
 let selectedBreedId;
-
+    
 hideCatInfo();
 selector.addEventListener('change', () => {
+    hideCatInfo();
     showLoader();
     selectedBreedId = selector.value;
 
@@ -77,6 +78,7 @@ selector.addEventListener('change', () => {
             viewCatInfo();
         })
         .catch((error => {
+            hideCatInfo();
             showErrMessage();
             console.error("You've got an error" + error);
         }))
