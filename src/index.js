@@ -40,6 +40,15 @@ function viewCatInfo() {
     catInfo.classList.remove("invisible");
 }
 
+//selector visibility
+function hideSelector() {
+    selector.classList.add("invisible");
+}
+
+function showSelector() {
+    selector.classList.remove("invisible");
+}
+
 fetchBreeds()
     .then(breeds => {
         breeds.forEach(breed => {
@@ -67,8 +76,10 @@ function createMarkup(breedOpt) {
 let selectedBreedId;
     
 hideCatInfo();
+
 selector.addEventListener('change', () => {
     hideCatInfo();
+    hideSelector();
     showLoader();
     selectedBreedId = selector.value;
 
@@ -86,6 +97,7 @@ selector.addEventListener('change', () => {
             hideErrMessage();
             hideLoader();
             viewCatInfo();
+            showSelector();
         });
 });
 
