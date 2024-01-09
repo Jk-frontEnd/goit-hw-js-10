@@ -79,18 +79,13 @@ hideCatInfo();
 
 selector.addEventListener('change', () => {
     hideCatInfo();
-    hideSelector();
     showLoader();
-    selectedBreedId = selector.value;
 
-  if(option.value === none || option.value = 0 || option.value = undefined) {
-    hideCatInfo();
-  }
+    selectedBreedId = selector.value;
 
     fetchCatByBreed(selectedBreedId)
         .then(data => {
             catInfo.innerHTML = createMarkup(data);
-            viewCatInfo();
         })
         .catch((error => {
             hideCatInfo();
@@ -101,7 +96,6 @@ selector.addEventListener('change', () => {
             hideErrMessage();
             hideLoader();
             viewCatInfo();
-            showSelector();
         });
 });
 
@@ -109,7 +103,7 @@ selector.addEventListener('load', () => {
     try {
         loader.classList.toggle("invisible");
     } catch {
-        Notiflix.Notify.failure(errMessage.textContent);
+        Notiflix.Notify.failure('Sory! ' + errMessage.textContent);
         loader.classList.toggle("invisible");
         errMessage.classList.toggle("invisible");
         console.error;
