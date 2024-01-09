@@ -80,6 +80,7 @@ hideCatInfo();
 selector.addEventListener('change', () => {
     hideCatInfo();
     showLoader();
+    hideSelector();
 
     selectedBreedId = selector.value;
 
@@ -95,16 +96,20 @@ selector.addEventListener('change', () => {
         .finally(() => {
             hideErrMessage();
             hideLoader();
+            showSelector();
             viewCatInfo();
         });
 });
 
 selector.addEventListener('load', () => {
     try {
+        hideSelector();
+        showLoader();
         loader.classList.toggle("invisible");
     } catch {
+        hideSelector();
+        showLoader();
         Notiflix.Notify.failure('Sory! ' + errMessage.textContent);
-        loader.classList.toggle("invisible");
         errMessage.classList.toggle("invisible");
         console.error;
    }
