@@ -83,6 +83,10 @@ selector.addEventListener('change', () => {
     showLoader();
     selectedBreedId = selector.value;
 
+  if(option === none) {
+    hideCatInfo();
+  }
+
     fetchCatByBreed(selectedBreedId)
         .then(data => {
             catInfo.innerHTML = createMarkup(data);
