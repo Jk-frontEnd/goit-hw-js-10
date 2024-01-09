@@ -83,7 +83,7 @@ selector.addEventListener('change', () => {
     showLoader();
     selectedBreedId = selector.value;
 
-  if(option === none) {
+  if(option.value === none || option.value = 0 || option.value = undefined) {
     hideCatInfo();
   }
 
