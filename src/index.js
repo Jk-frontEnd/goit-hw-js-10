@@ -49,6 +49,9 @@ function showSelector() {
     selector.classList.remove("invisible");
 }
 
+hideSelector();
+showLoader();
+
 fetchBreeds()
     .then(breeds => {
         breeds.forEach(breed => {
@@ -59,12 +62,16 @@ fetchBreeds()
             selector.appendChild(option);
         });
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err))
+    .finally(() => {
+        showSelector()
+        hideLoader()
+    });
 
 function createMarkup(breedOpt) {
     return breedOpt
         .map(({ url, breeds: [{ name, description, temperament }] }) =>
-        `<img src="${url}" alt="" height="250px"/>
+            `<img src="${url}" alt="" height="250px"/>
         <div>
             <h2 class="cat-breed">${name}</h2>
             <p class="cat-desc">${description}</p>
@@ -74,14 +81,11 @@ function createMarkup(breedOpt) {
 }
 
 let selectedBreedId;
-    
+
 hideCatInfo();
 
 selector.addEventListener('change', () => {
-    hideCatInfo();
     showLoader();
-    hideSelector();
-
     selectedBreedId = selector.value;
 
     fetchCatByBreed(selectedBreedId)
@@ -99,6 +103,9 @@ selector.addEventListener('change', () => {
             showSelector();
             viewCatInfo();
         });
+    
+    hideCatInfo();
+    hideSelector();
 });
 
 selector.addEventListener('load', () => {
@@ -109,8 +116,10 @@ selector.addEventListener('load', () => {
     } catch {
         hideSelector();
         showLoader();
-        Notiflix.Notify.failure('Sory! ' + errMessage.textContent);
+        Notiflix.Notify.failure('Sorry! ' + errMessage.textContent);
         errMessage.classList.toggle("invisible");
         console.error;
-   }
+    }
 });
+
+export { hideSelector, showSelector };
